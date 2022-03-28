@@ -48,8 +48,8 @@ export default function resolveVariant(owner, fullName, candidates) {
       assert(
         `expected '${candidateFullName}' to be a valid factory`,
         factory !== null &&
-        typeof factory === 'object' &&
-        typeof factory.class === 'function'
+          typeof factory === 'object' &&
+          typeof factory.class === 'function'
       );
 
       return factory.class;

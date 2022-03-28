@@ -49,8 +49,8 @@ export default class Service {
     assert(
       `expected ${this}.candidates to be an non-empty array of strings`,
       Array.isArray(candidates) &&
-      candidates.length > 0 &&
-      candidates.every((c) => typeof c === 'string')
+        candidates.length > 0 &&
+        candidates.every((c) => typeof c === 'string')
     );
 
     let Class = this.resolve(owner, fullName, candidates);
@@ -64,7 +64,7 @@ export default class Service {
     } else {
       throw new Error(
         `No available implementation for '${fullName}', ` +
-        `tried ${candidates.join(', ')}`
+          `tried ${candidates.join(', ')}`
       );
     }
   }
