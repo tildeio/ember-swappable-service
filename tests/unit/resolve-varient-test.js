@@ -1,4 +1,4 @@
-import resolveVarient from 'ember-swappable-service/-resolve-varient';
+import resolveVariant from 'ember-swappable-service/-resolve-variant';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
@@ -18,7 +18,7 @@ class BarBazService {
   static isServiceFactory = true;
 }
 
-module('Unit | -resolve-varient', function (hooks) {
+module('Unit | -resolve-variant', function (hooks) {
   setupTest(hooks);
 
   hooks.beforeEach(function () {
@@ -33,19 +33,19 @@ module('Unit | -resolve-varient', function (hooks) {
 
   test('single candidate', function (assert) {
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', ['bar']),
+      resolveVariant(this.owner, 'service:foo', ['bar']),
       BarService,
       "resolving ['bar']"
     );
 
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', ['baz']),
+      resolveVariant(this.owner, 'service:foo', ['baz']),
       BazService,
       "resolving ['baz']"
     );
 
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', ['bar/baz']),
+      resolveVariant(this.owner, 'service:foo', ['bar/baz']),
       BarBazService,
       "resolving ['bar/baz']"
     );
@@ -53,19 +53,19 @@ module('Unit | -resolve-varient', function (hooks) {
 
   test('multiple candidates', function (assert) {
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', ['bar', 'baz']),
+      resolveVariant(this.owner, 'service:foo', ['bar', 'baz']),
       BarService,
       "resolving ['bar', 'baz']"
     );
 
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', ['baz', 'bar']),
+      resolveVariant(this.owner, 'service:foo', ['baz', 'bar']),
       BazService,
       "resolving ['baz', 'bar']"
     );
 
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', ['foo', 'bar']),
+      resolveVariant(this.owner, 'service:foo', ['foo', 'bar']),
       BarService,
       "resolving ['foo', 'bar']"
     );
@@ -73,13 +73,13 @@ module('Unit | -resolve-varient', function (hooks) {
 
   test('unknown candidates', function (assert) {
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', []),
+      resolveVariant(this.owner, 'service:foo', []),
       null,
       'resolving []'
     );
 
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:foo', ['foo']),
+      resolveVariant(this.owner, 'service:foo', ['foo']),
       null,
       "resolving ['foo']"
     );
@@ -87,7 +87,7 @@ module('Unit | -resolve-varient', function (hooks) {
 
   test('nested fullName', function (assert) {
     assert.strictEqual(
-      resolveVarient(this.owner, 'service:nested/foo', ['bar']),
+      resolveVariant(this.owner, 'service:nested/foo', ['bar']),
       BarService,
       "resolving ['bar']"
     );
@@ -95,12 +95,12 @@ module('Unit | -resolve-varient', function (hooks) {
 
   test('invalid fullName', function (assert) {
     assert.throws(
-      () => resolveVarient(this.owner, 'foo', ['bar']),
+      () => resolveVariant(this.owner, 'foo', ['bar']),
       /expected 'foo' to be a service name/
     );
 
     assert.throws(
-      () => resolveVarient(this.owner, 'service:bar', ['baz']),
+      () => resolveVariant(this.owner, 'service:bar', ['baz']),
       /expected 'service:bar' to be registered/
     );
   });

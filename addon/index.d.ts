@@ -9,7 +9,7 @@ export default class Service {
   ): InstanceType<Class>;
 
   /**
-   * An ordered list of candidate varients to search for.
+   * An ordered list of candidate variants to search for.
    *
    * The default candidates, depending on the build context, consist of:
    *
@@ -20,19 +20,19 @@ export default class Service {
    *   in `@ember/debug` would have run)
    * - "default"
    *
-   * These respective varients (e.g. `app/services/foo/-debug.js`) are searched
+   * These respective variants (e.g. `app/services/foo/-debug.js`) are searched
    * in the order they are listed here when the relevant conditions are met.
    *
    * For example, when developing using the `ember server` under the default
    * settings, the addon will try to look for the "debug", "development" and
-   * "default" varients, (`app/services/foo/-{debug,development,default}.js`),
-   * in that order. That is, if both the "development" and "default" varient
-   * are present, the "development" varient will be used. On the other hand, if
+   * "default" variants, (`app/services/foo/-{debug,development,default}.js`),
+   * in that order. That is, if both the "development" and "default" variant
+   * are present, the "development" variant will be used. On the other hand, if
    * none of the candidates are found, then the "main" service file
    * (`app/services/foo.js`) is used.
    *
-   * Note that the "testing" varient is not merely a synonym for the "test"
-   * varient and the "debug" is likewise not synonymous with the "development".
+   * Note that the "testing" variant is not merely a synonym for the "test"
+   * variant and the "debug" is likewise not synonymous with the "development".
    * While the `ember test` command runs the build it in the test environment
    * by default, it is possible to override that. For instance,
    * `ember test -e production` will run the tests in the production
@@ -43,12 +43,12 @@ export default class Service {
    *
    * ```js
    * class FooService extends Service {
-   *   static candidates = ['my-varient', 'other-varient'];
+   *   static candidates = ['my-variant', 'other-variant'];
    * }
    * ```
    *
-   * In this example, only "my-varient" and "other-varient" will be tried. Any
-   * other varients (including "default", etc) are completely ignored.
+   * In this example, only "my-variant" and "other-variant" will be tried. Any
+   * other variants (including "default", etc) are completely ignored.
    *
    * Alternatively, the default candidates can be preserved, like so:
    *
@@ -73,17 +73,17 @@ export default class Service {
   static candidates: string[];
 
   /**
-   * A hook for overriding how varient classes are resolved.
+   * A hook for overriding how variant classes are resolved.
    *
-   * By default, the varient classes are searched/resolved by performing
+   * By default, the variant classes are searched/resolved by performing
    * lookups on the owner at runtime. This only work when all the available
-   * varient classes/factories are registered with the container/owner.
+   * variant classes/factories are registered with the container/owner.
    *
    * In more restrictive build environments this may not be possible or
    * desirable, so this hook exists to allow for overriding that behavior. This
    * can potentially make the resolution more friendly to static (build-time)
    * analysis (for example by using `importSync()` from @embroider/macros) and
-   * enable removing unused varients from the build, without using the manual
+   * enable removing unused variants from the build, without using the manual
    * configurations in `ember-cli-build.js`.
    *
    * @param owner – The Owner, either the application or the parent engine.
@@ -102,17 +102,17 @@ export default class Service {
    * When looking up a service, either with a `@service foo` declaration or
    * with `owner.lookup('service:foo')`, the "main" class at (the default
    * export from `app/services/foo.js`) will try to resolve and instantiate one
-   * of the available varients (those at `app/services/foo/-*.js`) from the
+   * of the available variants (those at `app/services/foo/-*.js`) from the
    * list of {@link candidates}.
    *
-   * By default, when no available varients can be resolved, the "main" class
+   * By default, when no available variants can be resolved, the "main" class
    * will be instantiated, which allows the {@link Service} class to act as a
    * drop-in replacement for regular Ember services.
    *
-   * This may be undesriable when using the abstract service pattern, where the
+   * This may be undesirable when using the abstract service pattern, where the
    * "main" class exists only to define the service's interface. In this case,
    * it would be unexpected for the "main" abstract class to be instantiated
-   * when no varients/implementations can be found.
+   * when no variants/implementations can be found.
    *
    * Setting {@link isAbstract} to `true` would cause an error to be thrown in
    * these circumstances. As a convenience, there is a {@link AbstractService}

@@ -28,14 +28,14 @@ module('Unit | SwappableService', function (hooks) {
     FooService = undefined;
   });
 
-  test('no varients available (non-abstract)', function (assert) {
+  test('no variants available (non-abstract)', function (assert) {
     assert.throws(
       () => this.owner.lookup('service:foo').inspect(),
       /`inspect` must be implemented/
     );
   });
 
-  test('no varients available (abstract)', function (assert) {
+  test('no variants available (abstract)', function (assert) {
     FooService.isAbstract = true;
 
     assert.throws(
@@ -44,7 +44,7 @@ module('Unit | SwappableService', function (hooks) {
     );
   });
 
-  test('default varient is preferred', function (assert) {
+  test('default variant is preferred', function (assert) {
     this.owner.register(
       'service:foo/-default',
       class extends FooService {
@@ -62,7 +62,7 @@ module('Unit | SwappableService', function (hooks) {
     );
   });
 
-  test('during testing, testing varient is preferred', function (assert) {
+  test('during testing, testing variant is preferred', function (assert) {
     if (Ember.testing !== true) {
       throw new Error('Ember.testing is unexpectedly false');
     }
@@ -96,7 +96,7 @@ module('Unit | SwappableService', function (hooks) {
     );
   });
 
-  test('outside of testing, default varient is preferred', function (assert) {
+  test('outside of testing, default variant is preferred', function (assert) {
     // eslint-disable-next-line ember/no-ember-testing-in-module-scope
     Ember.testing = false;
 
@@ -190,7 +190,7 @@ module('Unit | SwappableService', function (hooks) {
     );
   });
 
-  test('excluded varients are excluded from the build', function (assert) {
+  test('excluded variants are excluded from the build', function (assert) {
     assert.false(
       this.owner.hasRegistration('service:wow/-ignored'),
       'service:wow/-ignored should not be present'

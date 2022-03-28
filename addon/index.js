@@ -4,7 +4,7 @@ import { getOwner, setOwner } from '@ember/application';
 import { assert } from '@ember/debug';
 import { DEBUG } from '@glimmer/env';
 import getServiceFullName from './-get-service-full-name';
-import resolveVarient from './-resolve-varient';
+import resolveVariant from './-resolve-variant';
 
 export default class Service {
   static isServiceFactory = true;
@@ -38,7 +38,7 @@ export default class Service {
   }
 
   static resolve(owner, fullName, candidates) {
-    return resolveVarient(owner, fullName, candidates) ?? this;
+    return resolveVariant(owner, fullName, candidates) ?? this;
   }
 
   static create(props) {
@@ -49,8 +49,8 @@ export default class Service {
     assert(
       `expected ${this}.candidates to be an non-empty array of strings`,
       Array.isArray(candidates) &&
-        candidates.length > 0 &&
-        candidates.every((c) => typeof c === 'string')
+      candidates.length > 0 &&
+      candidates.every((c) => typeof c === 'string')
     );
 
     let Class = this.resolve(owner, fullName, candidates);
@@ -64,7 +64,7 @@ export default class Service {
     } else {
       throw new Error(
         `No available implementation for '${fullName}', ` +
-          `tried ${candidates.join(', ')}`
+        `tried ${candidates.join(', ')}`
       );
     }
   }

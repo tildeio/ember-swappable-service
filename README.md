@@ -1,8 +1,8 @@
 ember-swappable-service
 ==============================================================================
 
-An alternative base case for [Ember Services][ember-services] to facilate the
-"swappable" services pattern.
+An alternative base case for [Ember Services][ember-services] to facilitate
+the "swappable" services pattern.
 
 [ember-services]: https://guides.emberjs.com/release/services/
 
@@ -84,7 +84,7 @@ export default class PreferencesService extends Service {
   }
 
   /**
-   * Expands the preference name into a key appropiate storage key.
+   * Expands the preference name into a key appropriate storage key.
    *
    * @param {String} preference - The name of the preference item.
    * @returns {String} The storage key.
@@ -167,7 +167,7 @@ work exactly the same without any other changes.
 
 > <sup>1</sup> The main difference is that the base class provided here does
 > _not_ inherit from `Ember.Object`. This doesn't typically cause any issues
-> for modern, idomatic code.
+> for modern, idiomatic code.
 
 The next step is to add this new file:
 
@@ -179,7 +179,7 @@ import PreferencesService from '../preferences';
 export default class TestingPreferencesService extends PreferencesService {
   /**
    * In tests, preference items are stored in an in-memory JavaScript `Map`
-   * instead of `localStorage`. Since the service is torndown, destroyed
+   * instead of `localStorage`. Since the service is torn down, destroyed
    * and recreated between tests, any stored preference items won't leak
    * between tests.
    *
@@ -200,29 +200,29 @@ export default class TestingPreferencesService extends PreferencesService {
 }
 ```
 
-Here, we created a _varient_ of our `PreferencesService` that uses in-memory
+Here, we created a _variant_ of our `PreferencesService` that uses in-memory
 storage rather than `localStorage`.
 
 By following the [naming convention](#naming-conventions) to place our class
 at `app/services/preferences/-testing.js`, the addon will automatically pick
-up and recognize this is a varient of the "preferences" service for use during
+up and recognize this is a variant of the "preferences" service for use during
 testing.
 
 Anytime this service is used in a test, through a `@service preferences`
 declaration, or through a call to `owner.lookup('service:preferences')`, this
-varient of our service will be _swapped in_, preventing accidental leakages.
+variant of our service will be _swapped in_, preventing accidental leakages.
 Best of all, the addon will also take care of [stripping](#code-stripping)
 this extra code from the build when it is not needed.
 
 ### Naming Conventions
 
 This _swappable services_ pattern is not only useful in testing. For example,
-it may be useful to have a development varient of your session service that
+it may be useful to have a development variant of your session service that
 bypasses some of the more cumbersome steps (2FA, CAPTCHAs) that would normally
 take to authenticate a user in production.
 
-In addition to the "testing" varient we saw above, this addon also tries to
-look for a few other possible varients depending on the build and runtime
+In addition to the "testing" variant we saw above, this addon also tries to
+look for a few other possible variants depending on the build and runtime
 context. Here is a complete list:
 
 * **testing** (`app/services/foo/-testing.js`) – only when running tests (when
@@ -235,18 +235,18 @@ context. Here is a complete list:
 * **default** (`app/services/foo/-default.js`)
 * The "main" service file (`app/services/foo.js`)
 
-These possible varients are searched in the order they are listed here when
+These possible variants are searched in the order they are listed here when
 the relevant conditions are met.
 
 For example, when developing using the `ember server` under the default
 settings, the addon will try to look for the "debug", "development" and
-"default" varients, (`app/services/foo/-{debug,development,default}.js`),
-in that order. That is, if both the "development" and "default" varient are
-present, the "development" varient will be used. On the other hand, if none of
+"default" variants, (`app/services/foo/-{debug,development,default}.js`),
+in that order. That is, if both the "development" and "default" variant are
+present, the "development" variant will be used. On the other hand, if none of
 the candidates are found, then the "main" service file (`app/services/foo.js`)
 is used.
 
-Note that the "testing" varient is not merely a synonym for the "test" varient
+Note that the "testing" variant is not merely a synonym for the "test" variant
 and the "debug" is likewise not synonymous with the "development". While the
 `ember test` command runs the build it in the test environment by default, it
 is possible to override that. For instance, `ember test -e production` will
@@ -300,14 +300,14 @@ export default class GeolocationService extends AbstractService {
 
 Here, we focused on defining what the service _does_ – what methods are
 available – without actually providing an implementation, as we are expecting
-them to be provided by the varients which we will get to soon.
+them to be provided by the variants which we will get to soon.
 
 Note that we are importing the `AbstractService` base class from the addon.
 This signals that the `GeolocationService` class here is an _abstract_ class
-that is not intended for direct use. If not varients can be found, an error
+that is not intended for direct use. If not variants can be found, an error
 will be thrown instead.
 
-Speaking of which, lets define a few varients, or _implementations_, for this
+Speaking of which, lets define a few variants, or _implementations_, for this
 service:
 
 ```js
@@ -316,7 +316,7 @@ service:
 import GeolocationService from '../geolocation';
 
 /**
- * The default implementaion wraps the browser's Geolocation API into the
+ * The default implementation wraps the browser's Geolocation API into the
  * required async API.
  */
 export default class DefaultGeoLocationService extends GeolocationService {
@@ -478,7 +478,7 @@ export default class PreferencesService extends AbstractService {
   }
 
   /**
-   * Expands the preference name into a key appropiate storage key.
+   * Expands the preference name into a key appropriate storage key.
    *
    * @protected
    * @param {String} preference - The name of the preference item.
@@ -533,27 +533,27 @@ export default class DefaultPreferencesService extends PreferencesService {
 Here, the abstract class both defined the public interface and also provided
 some of the logic that can be shared between the implementations. This allows
 the implementations to focus on the core functionalities that genuinely needs
-to be different between the varients, which also improves test coverage as
-more of the code that makes up the service can be execrised in tests.
+to be different between the variants, which also improves test coverage as
+more of the code that makes up the service can be exercised in tests.
 
-### Custom Varients
+### Custom Variants
 
-Sometimes, it is useful to have additional varients of a service in addition
+Sometimes, it is useful to have additional variants of a service in addition
 to the [built-in conventions](#naming-conventions).
 
-Arbitrary custom varients can be placed in the same folder for the service,
-with a leading dash in their filename similar to the built-in varients. In
-order to select them for use, the static `candidates` field can be overriden
-to include these custom varients:
+Arbitrary custom variants can be placed in the same folder for the service,
+with a leading dash in their filename similar to the built-in variants. In
+order to select them for use, the static `candidates` field can be overridden
+to include these custom variants:
 
 ```js
 class FooService extends Service {
-  static candidates = ['my-varient', 'other-varient'];
+  static candidates = ['my-variant', 'other-variant'];
 }
 ```
 
-In this example, only "my-varient" and "other-varient" will be tried. Any
-other varients (including "default", etc) are completely ignored.
+In this example, only "my-variant" and "other-variant" will be tried. Any
+other variants (including "default", etc) are completely ignored.
 
 Alternatively, the default candidates can be preserved, like so:
 
@@ -577,17 +577,17 @@ class FooService extends SwappableService {
 
 ### Code Stripping
 
-Out of the box, this addon is configured to remove the unnecessary varients
+Out of the box, this addon is configured to remove the unnecessary variants
 from the build where they are not needed. For example, when building for the
 production environment (`ember build -prod`), only the "production" and
-"default" varients will be kept in the build.
+"default" variants will be kept in the build.
 
-However, this only applies to [conventional varients](#naming-conventions).
-By default, the addon will not remove any custom varients from the build as it
+However, this only applies to [conventional variants](#naming-conventions).
+By default, the addon will not remove any custom variants from the build as it
 cannot safely determine whether they will be needed.
 
-To exclude custom varients from the build, you can provide additional glob
-patterns (relateive to `app/services`) in `ember-cli-build.js`. For example:
+To exclude custom variants from the build, you can provide additional glob
+patterns (relative to `app/services`) in `ember-cli-build.js`. For example:
 
 ```js
 // ember-cli-build.js
@@ -621,11 +621,11 @@ This addon works with [Embroider][embroider] out-of-the-box.
 
 By default, Embroider includes all the files from the services directory,
 since Embroider cannot easily determine where each service is used. This
-allows the addon's default resolution strategry (looking up varients from the
+allows the addon's default resolution strategy (looking up variants from the
 owner at runtime) to work without further configuration.
 
 However, it is possible to [configure Embroider][embroider-config] to load
-service files statically. In this case, you may find it desriable or even
+service files statically. In this case, you may find it desirable or even
 necessary to override the default resolution logic to be more static. The
 `Service` base class provides a `resolve` hook that you can override for this
 purpose.
@@ -636,25 +636,25 @@ import Service from 'ember-swappable-services';
 
 export default class FooService extends Service {
   static resolve(_owner, fullName, candidates) {
-    let varients = {
+    let variants = {
       default: importSync('./foo/-default').default;
     };
 
     if (macroCondition(isTesting())) {
-      varients['testing'] = importSync('./foo/-testing').default;
+      variants['testing'] = importSync('./foo/-testing').default;
     }
 
     if (macroCondition(isDevelopingApp())) {
-      varients['debug'] = importSync('./foo/-debug').default;
+      variants['debug'] = importSync('./foo/-debug').default;
     }
 
     if (macroCondition(getOwnConfig().includeExperimentalService)) {
-      varients['experimental'] = importSync('./foo/-experimental').default;
+      variants['experimental'] = importSync('./foo/-experimental').default;
     }
 
     for (let candidate of candidates) {
-      if (candidate in varients) {
-        return varients[candidate];
+      if (candidate in variants) {
+        return variants[candidate];
       }
     }
 
@@ -706,7 +706,7 @@ export default abstract class SessionService extends AbstractService {
 TypeScript files that follow the [naming convention](#naming-conventions)
 (but with `.ts` or `.d.ts` extensions) will still benefit from the built-in
 [code stripping](#code-stripping) support. However, when `exclude`-ing
-[custom varients](#custom-varients), be sure to adjust the glob patterns to
+[custom variants](#custom-variants), be sure to adjust the glob patterns to
 account for the different file extensions.
 
 

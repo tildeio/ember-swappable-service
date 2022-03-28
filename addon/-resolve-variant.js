@@ -1,11 +1,11 @@
 import { assert } from '@ember/debug';
 
 /**
- * Given an Owner, the fullName of a service and the candidate varients, find
- * the first available varient (the resolved class), or `null` if none can be
+ * Given an Owner, the fullName of a service and the candidate variants, find
+ * the first available variant (the resolved class), or `null` if none can be
  * found.
  */
-export default function resolveVarient(owner, fullName, candidates) {
+export default function resolveVariant(owner, fullName, candidates) {
   assert(
     'expected owner to be an object',
     owner !== null && typeof owner === 'object'
@@ -48,8 +48,8 @@ export default function resolveVarient(owner, fullName, candidates) {
       assert(
         `expected '${candidateFullName}' to be a valid factory`,
         factory !== null &&
-          typeof factory === 'object' &&
-          typeof factory.class === 'function'
+        typeof factory === 'object' &&
+        typeof factory.class === 'function'
       );
 
       return factory.class;
