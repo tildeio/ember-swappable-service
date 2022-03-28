@@ -1,7 +1,7 @@
 {
   "name": "ember-swappable-service",
   "version": "0.5.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "An alternative base case for Ember Services to facilate the swappable services pattern.",
   "keywords": [
     "ember-addon"
   ],
