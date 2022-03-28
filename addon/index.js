@@ -1,10 +1,5 @@
-import {
-  dependencySatisfies,
-  getOwnConfig,
-  importSync,
-  isTesting,
-  macroCondition,
-} from '@embroider/macros';
+import Ember from 'ember';
+import { getOwnConfig, isTesting, macroCondition } from '@embroider/macros';
 import { getOwner, setOwner } from '@ember/application';
 import { assert } from '@ember/debug';
 import { DEBUG } from '@glimmer/env';
@@ -30,14 +25,8 @@ export default class Service {
     }
 
     if (macroCondition(isTesting())) {
-      if (macroCondition(dependencySatisfies('ember-source', '>= 3.27.0'))) {
-        if (importSync('ember').default.testing) {
-          candidates.unshift('testing');
-        }
-      } else {
-        if (window.Ember.testing) {
-          candidates.unshift('testing');
-        }
+      if (Ember.testing) {
+        candidates.unshift('testing');
       }
     }
 
