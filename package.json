@@ -1,7 +1,7 @@
 {
   "name": "ember-swappable-service",
   "version": "0.6.0",
-  "description": "An alternative base case for Ember Services to facilitate the swappable services pattern.",
+  "description": "An alternative base class for Ember Services to facilitate the swappable services pattern.",
   "keywords": [
     "ember-addon"
   ],

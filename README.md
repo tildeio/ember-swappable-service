@@ -1,7 +1,7 @@
 ember-swappable-service
 ==============================================================================
 
-An alternative base case for [Ember Services][ember-services] to facilitate
+An alternative base class for [Ember Services][ember-services] to facilitate
 the "swappable" services pattern.
 
 [ember-services]: https://guides.emberjs.com/release/services/
